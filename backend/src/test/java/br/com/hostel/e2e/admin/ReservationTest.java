@@ -18,13 +18,13 @@ import br.com.hostel.e2e.ChromeConnection;
 
 @RunWith(JUnitPlatform.class)
 @TestMethodOrder(OrderAnnotation.class)
-public class ReservationTest {
+class ReservationTest {
 
-	ChromeConnection chromeConnection = new ChromeConnection();
-	WebDriver driver = chromeConnection.Connection();
+	private final ChromeConnection chromeConnection = new ChromeConnection();
+	private final WebDriver driver = chromeConnection.Connection();
 
 	@BeforeEach
-	public void init() throws InterruptedException {
+	void init() throws InterruptedException {
 		// make login
 		driver.get("http://localhost:3000/");
 		driver.manage().window().maximize();
@@ -40,7 +40,7 @@ public class ReservationTest {
 
 	@Test
 	@Order(1)
-	public void registerANewReservation() throws InterruptedException {
+	void registerANewReservation() throws InterruptedException {
 
 		driver.findElement(By.xpath("//*[@id=\"root\"]/div/div/header/a")).click();
 		Thread.sleep(3000);
@@ -82,7 +82,7 @@ public class ReservationTest {
 
 	@Test
 	@Order(2)
-	public void updateReservation() throws InterruptedException {
+	void updateReservation() throws InterruptedException {
 
 		driver.findElement(By.xpath("//*[@id=\"root\"]/div/div/div/ul/li/button[2]")).click();
 		Thread.sleep(3000);
@@ -121,7 +121,7 @@ public class ReservationTest {
 
 	@Test
 	@Order(3)
-	public void deleteReservation() throws InterruptedException {
+	void deleteReservation() throws InterruptedException {
 
 		driver.findElement(By.xpath("//*[@id=\"root\"]/div/div/div/ul/li/button[1]")).click();
 		Thread.sleep(3000);

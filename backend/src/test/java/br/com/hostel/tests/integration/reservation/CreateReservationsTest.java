@@ -33,7 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @AutoConfigureMockMvc
-public class CreateReservationsTest {
+class CreateReservationsTest {
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -42,15 +42,15 @@ public class CreateReservationsTest {
 	private ObjectMapper objectMapper;
 	
 	private URI uri;
-	private HttpHeaders headers = new HttpHeaders();
-	private ReservationForm reservationForm = new ReservationForm();
-	private CheckPayment checkPayment = new CheckPayment();
-	private CashPayment cashPayment = new CashPayment();
-	private CreditCardPayment creditCardPayment = new CreditCardPayment();
-	private List<Long> rooms_ID = new ArrayList<>();
+	private final HttpHeaders headers = new HttpHeaders();
+	private final ReservationForm reservationForm = new ReservationForm();
+	private final CheckPayment checkPayment = new CheckPayment();
+	private final CashPayment cashPayment = new CashPayment();
+	private final CreditCardPayment creditCardPayment = new CreditCardPayment();
+	private final List<Long> rooms_ID = new ArrayList<>();
 	
 	@BeforeEach
-	public void init() throws Exception {
+	void init() throws Exception {
 		
 		uri = new URI("/api/reservations/");
 		
@@ -58,7 +58,7 @@ public class CreateReservationsTest {
 	}
 	
 	@Test
-	public void shouldReturnNotFoundStatusWithNonExistentGuestID() throws Exception {
+	void shouldReturnNotFoundStatusWithNonExistentGuestID() throws Exception {
 		
 		reservationForm.setGuest_ID(Long.MAX_VALUE);
 		
@@ -70,7 +70,7 @@ public class CreateReservationsTest {
 	}
 	
 	@Test
-	public void shouldReturnBadRequestStatusWithReservationCheckinDateOlderActualDate() throws Exception {
+	void shouldReturnBadRequestStatusWithReservationCheckinDateOlderActualDate() throws Exception {
 		
 		reservationForm.setCheckinDate(LocalDate.of(1900, 10, 10));
 		
@@ -82,7 +82,7 @@ public class CreateReservationsTest {
 	}
 	
 	@Test
-	public void shouldReturnBadRequestWhenCheckoutDateIsOlderThanCheckinDate() throws Exception {
+	void shouldReturnBadRequestWhenCheckoutDateIsOlderThanCheckinDate() throws Exception {
 		
 		reservationForm.setCheckinDate(LocalDate.of(2022, 10, 10));
 		reservationForm.setCheckoutDate(LocalDate.of(2022, 10, 9));
@@ -95,7 +95,7 @@ public class CreateReservationsTest {
 	}
 	
 	@Test
-	public void shouldReturnBadRequestStatusWithReservationRoomsListEmpty() throws Exception {
+	void shouldReturnBadRequestStatusWithReservationRoomsListEmpty() throws Exception {
 
 		reservationForm.setRooms_ID(new ArrayList<>());
 		
@@ -107,7 +107,7 @@ public class CreateReservationsTest {
 	}
 	
 	@Test
-	public void shouldCreateOneReservationUsingCheckPaymentSuccessfully() throws Exception {
+	void shouldCreateOneReservationUsingCheckPaymentSuccessfully() throws Exception {
 
 		MvcResult result = 
 				mockMvc
@@ -130,7 +130,7 @@ public class CreateReservationsTest {
 	}
 	
 	@Test
-	public void shouldCreateOneReservationUsingCashPaymentSuccessfully() throws Exception {
+	void shouldCreateOneReservationUsingCashPaymentSuccessfully() throws Exception {
 		cashPayment.setAmount(4000);
 		cashPayment.setAmountTendered(10000);
 		cashPayment.setDate(LocalDateTime.of(LocalDate.of(2025,1,25), LocalTime.of(21, 32)));
@@ -160,7 +160,7 @@ public class CreateReservationsTest {
 	}
 	
 	@Test
-	public void shouldCreateOneReservationUsingCreditCardPaymentSuccessfully() throws Exception {
+	void shouldCreateOneReservationUsingCreditCardPaymentSuccessfully() throws Exception {
 		creditCardPayment.setAmount(5000);
 		creditCardPayment.setDate(LocalDateTime.of(LocalDate.of(2025,1,25), LocalTime.of(21, 33)));
 		creditCardPayment.setIssuer("VISA");

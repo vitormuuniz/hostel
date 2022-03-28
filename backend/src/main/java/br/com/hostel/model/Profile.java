@@ -13,7 +13,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-public class Perfil implements GrantedAuthority{
+public class Profile implements GrantedAuthority{
 
 	private static final long serialVersionUID = 1L;
 

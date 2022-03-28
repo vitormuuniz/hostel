@@ -26,7 +26,7 @@ import br.com.hostel.service.GuestService;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = GuestService.class)
-public class UpdateGuestsTest {
+class UpdateGuestsTest {
 
 	@MockBean
 	private GuestRepository guestRepository;
@@ -40,17 +40,17 @@ public class UpdateGuestsTest {
 	@Autowired
 	private GuestService guestService;
 	
-	private static Address address = new Address();
-	private static Guest guest = new Guest();
+	private static final Address address = new Address();
+	private static final Guest guest = new Guest();
 	
 	@BeforeAll
-	public static void beforeAll() throws Exception {
+	static void beforeAll() {
 		
 		GuestsInitializer.initialize(address, guest);
 	}
 
 	@Test
-	public void shouldUpdateGuestNameAndLastName() {
+	void shouldUpdateGuestNameAndLastName() {
 
 		Optional<Guest> opGuest = Optional.of(guest);
 		
@@ -68,7 +68,7 @@ public class UpdateGuestsTest {
 	}
 	
 	@Test
-	public void shouldNotUpdateGuestWithNonexistentID() {
+	void shouldNotUpdateGuestWithNonexistentID() {
 		
 		Optional<Guest> nonexistentGuest = Optional.empty();
 		

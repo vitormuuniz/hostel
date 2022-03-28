@@ -1,4 +1,4 @@
-package br.com.hostel.model.helper;
+package br.com.hostel.model.enums;
 
 public enum Role {
 	ROLE_USER, ROLE_ADMIN

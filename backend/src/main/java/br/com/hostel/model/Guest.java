@@ -23,7 +23,7 @@ import javax.persistence.OneToOne;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import br.com.hostel.model.helper.Role;
+import br.com.hostel.model.enums.Role;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -59,9 +59,9 @@ public class Guest implements UserDetails {
     @Enumerated(EnumType.STRING)
 	private Role role;
 
-	@Column(name = "perfis")
+	@Column(name = "profiles")
 	@OneToMany(fetch = FetchType.EAGER)
-	private List<Perfil> perfis = new ArrayList<>();
+	private List<Profile> profiles = new ArrayList<>();
 
 	@OneToMany(cascade = { CascadeType.REMOVE, CascadeType.MERGE })
 	@Column(name = "reservations")
@@ -112,7 +112,7 @@ public class Guest implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return this.perfis;
+		return this.profiles;
 	}
 
 	@Override

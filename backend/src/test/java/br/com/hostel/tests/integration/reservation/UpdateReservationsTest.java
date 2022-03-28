@@ -33,7 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @AutoConfigureMockMvc
-public class UpdateReservationsTest {
+class UpdateReservationsTest {
 
 	@Autowired
 	private ReservationRepository reservationRepository;
@@ -51,10 +51,10 @@ public class UpdateReservationsTest {
 	private ObjectMapper objectMapper;
 	
 	private URI uri;
-	private HttpHeaders headers = new HttpHeaders();
-	private ReservationForm reservationForm = new ReservationForm();
-	private CheckPayment checkPayment = new CheckPayment();
-	private List<Long> rooms_ID = new ArrayList<>();
+	private final HttpHeaders headers = new HttpHeaders();
+	private final ReservationForm reservationForm = new ReservationForm();
+	private final CheckPayment checkPayment = new CheckPayment();
+	private final List<Long> rooms_ID = new ArrayList<>();
 	private Reservation reservation;
 	
 	@BeforeEach
@@ -69,7 +69,7 @@ public class UpdateReservationsTest {
 	}
 	
 	@Test
-	public void shouldAuthenticateAndUpdateReservationInformation() throws Exception {
+	void shouldAuthenticateAndUpdateReservationInformation() throws Exception {
 
 		ReservationUpdateForm rsvToUpdate = new ReservationUpdateForm();
 		rsvToUpdate.setNumberOfGuests(3);
@@ -96,7 +96,7 @@ public class UpdateReservationsTest {
 	}
 	
 	@Test
-	public void shouldReturnNotFoundStatusWhenUpdateWithNonExistentID() throws Exception {
+	void shouldReturnNotFoundStatusWhenUpdateWithNonExistentID() throws Exception {
 		
 		ReservationUpdateForm rsvToUpdate = new ReservationUpdateForm();
 		rsvToUpdate.setNumberOfGuests(3);
@@ -114,7 +114,7 @@ public class UpdateReservationsTest {
 	}
 	
 	@Test
-	public void shouldReturnBadRequestStatusWhenUpdateWithEmptyReservationRoomsList() throws Exception {
+	void shouldReturnBadRequestStatusWhenUpdateWithEmptyReservationRoomsList() throws Exception {
 		
 		ReservationUpdateForm rsvToUpdate = new ReservationUpdateForm();
 		rsvToUpdate.setNumberOfGuests(3);

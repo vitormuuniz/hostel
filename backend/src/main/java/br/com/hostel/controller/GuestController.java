@@ -19,8 +19,12 @@ import java.util.List;
 @RequestMapping("/api/guests")
 public class GuestController {
 
+	private final GuestService guestService;
+
 	@Autowired
-	private GuestService guestService;
+	public GuestController(GuestService guestService) {
+		this.guestService = guestService;
+	}
 
 	@PostMapping
 	public ResponseEntity<GuestDto> createGuest(@RequestBody @Valid GuestForm form, UriComponentsBuilder uriBuilder) {

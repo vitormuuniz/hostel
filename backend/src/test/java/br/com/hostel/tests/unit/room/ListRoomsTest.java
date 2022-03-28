@@ -1,13 +1,16 @@
 package br.com.hostel.tests.unit.room;
 
-import br.com.hostel.controller.helper.RoomFilter;
-import br.com.hostel.exceptions.room.RoomException;
-import br.com.hostel.model.DailyRate;
-import br.com.hostel.model.Reservation;
-import br.com.hostel.model.Room;
-import br.com.hostel.repository.ReservationRepository;
-import br.com.hostel.repository.RoomRepository;
-import br.com.hostel.service.RoomService;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.when;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,12 +20,14 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.time.LocalDate;
-import java.util.*;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.when;
+import br.com.hostel.controller.helper.RoomFilter;
+import br.com.hostel.exceptions.room.RoomException;
+import br.com.hostel.model.DailyRate;
+import br.com.hostel.model.Reservation;
+import br.com.hostel.model.Room;
+import br.com.hostel.repository.ReservationRepository;
+import br.com.hostel.repository.RoomRepository;
+import br.com.hostel.service.RoomService;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
@@ -37,21 +42,20 @@ public class ListRoomsTest {
 	@Autowired
 	private RoomService service;
 
-	private static Reservation firstReservation = new Reservation();
-	private static Reservation secondReservation = new Reservation();
-	private static Reservation thirdReservation = new Reservation();
-	private static List<Reservation> reservationsList = new ArrayList<>();
-	private static Set<Room> rooms = new HashSet<>();
-	private static Room firstRoom = new Room();
-	private static Room secondRoom = new Room();
-	private static Room thirdRoom = new Room();
-	private static Room fourthRoom = new Room();
-	private static DailyRate firstDailyRate = new DailyRate();
-	private static DailyRate secondDailyRate = new DailyRate();
-	private static DailyRate thirdDailyRate = new DailyRate();
-	private static List<Room> roomsList = new ArrayList<>();
-
-	private static RoomFilter filter = new RoomFilter();
+	private static final Reservation firstReservation = new Reservation();
+	private static final Reservation secondReservation = new Reservation();
+	private static final Reservation thirdReservation = new Reservation();
+	private static final List<Reservation> reservationsList = new ArrayList<>();
+	private static final Set<Room> rooms = new HashSet<>();
+	private static final Room firstRoom = new Room();
+	private static final Room secondRoom = new Room();
+	private static final Room thirdRoom = new Room();
+	private static final Room fourthRoom = new Room();
+	private static final DailyRate firstDailyRate = new DailyRate();
+	private static final DailyRate secondDailyRate = new DailyRate();
+	private static final DailyRate thirdDailyRate = new DailyRate();
+	private static final List<Room> roomsList = new ArrayList<>();
+	private static final RoomFilter filter = new RoomFilter();
 
 	@BeforeAll
 	public static void beforeAll() {		
@@ -125,7 +129,7 @@ public class ListRoomsTest {
 	}
 
 	@Test
-	public void shouldReturnAllRoomsWithoutParamAndStatusOk() {
+	void shouldReturnAllRoomsWithoutParamAndStatusOk() {
 
 		when(roomRepository.findAll()).thenReturn(roomsList);
 		when(reservationRepository.findAll()).thenReturn(reservationsList);
@@ -136,7 +140,7 @@ public class ListRoomsTest {
 	}
 
 	@Test
-	public void shouldReturnOneRoomAndStatusOkByParam() {
+	void shouldReturnOneRoomAndStatusOkByParam() {
 
 		List<Room> rooms = new ArrayList<>();
 		rooms.add(firstRoom);
@@ -152,7 +156,7 @@ public class ListRoomsTest {
 	}
 
 	@Test
-	public void shouldReturnEmptyListByUsingFilterByNumberOfGuests() {
+	void shouldReturnEmptyListByUsingFilterByNumberOfGuests() {
 
 		when(roomRepository.findAll()).thenReturn(roomsList);
 
@@ -166,7 +170,7 @@ public class ListRoomsTest {
 	}
 
 	@Test
-	public void shouldReturnOneRoomAndStatusOkByID() {
+	void shouldReturnOneRoomAndStatusOkByID() {
 
 		Optional<Room> opRoom = Optional.of(firstRoom);
 
@@ -179,7 +183,7 @@ public class ListRoomsTest {
 	}
 
 	@Test
-	public void shouldThrowExceptionByFindARoomWithNonexistentID() {
+	void shouldThrowExceptionByFindARoomWithNonexistentID() {
 
 		Optional<Room> opRoom = Optional.empty();
 

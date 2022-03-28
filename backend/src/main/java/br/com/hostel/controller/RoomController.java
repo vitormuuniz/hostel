@@ -21,8 +21,12 @@ import java.util.List;
 @RequestMapping("/api/rooms")
 public class RoomController {
 
+	private final RoomService roomService;
+
 	@Autowired
-	private RoomService roomService;
+	public RoomController(RoomService roomService) {
+		this.roomService = roomService;
+	}
 
 	@PostMapping
 	public ResponseEntity<RoomDto> registerRoom(@RequestBody @Valid RoomForm form, UriComponentsBuilder uriBuilder)

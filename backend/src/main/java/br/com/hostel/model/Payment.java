@@ -25,7 +25,7 @@ import lombok.Setter;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="payment_type", 
   discriminatorType = DiscriminatorType.INTEGER)
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
 @JsonSubTypes({@Type(value = CashPayment.class, name = "cash"), @Type(value = CheckPayment.class, name = "check"), @Type(value = CreditCardPayment.class, name = "creditCard") })
 public abstract class Payment {
 	

@@ -27,7 +27,7 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = RoomService.class)
-public class CreateRoomsTest {
+class CreateRoomsTest {
 
 	@MockBean
 	private RoomRepository roomRepository;
@@ -44,17 +44,16 @@ public class CreateRoomsTest {
 	@Autowired
 	private RoomService service;
 
-	private static Room room = new Room();
-	private static DailyRate dailyRate = new DailyRate();
+	private static final Room room = new Room();
+	private static final DailyRate dailyRate = new DailyRate();
 
 	@BeforeAll
-	public static void beforeAll() throws Exception {
-
+	static void beforeAll() {
 		RoomInitializer.initialize(room, dailyRate);
 	}
 
 	@Test
-	public void shouldCreateOneRoomSuccessfully() throws RoomException {
+	void shouldCreateOneRoomSuccessfully() throws RoomException {
 
 		Optional<Room> nonexistentRoom = Optional.empty();
 		
@@ -70,7 +69,7 @@ public class CreateRoomsTest {
 	}
 	
 	@Test
-	public void shouldReturnNullWithExistentRoomNumber() throws RoomException {
+	void shouldReturnNullWithExistentRoomNumber() throws RoomException {
 		
 		Optional<Room> opRoom = Optional.of(room);
 

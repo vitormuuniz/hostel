@@ -15,13 +15,13 @@ import br.com.hostel.e2e.ChromeConnection;
 
 @RunWith(JUnitPlatform.class)
 @TestMethodOrder(OrderAnnotation.class)
-public class FunctionalitiesTest {
+class FunctionalitiesTest {
 
-	ChromeConnection chromeConnection = new ChromeConnection();
-	WebDriver driver = chromeConnection.Connection();
+	private final ChromeConnection chromeConnection = new ChromeConnection();
+	private final WebDriver driver = chromeConnection.Connection();
 
 	@BeforeEach
-	public void init() throws InterruptedException {
+	void init() throws InterruptedException {
 		// make login
 		driver.get("http://localhost:3000/");
 		driver.manage().window().maximize();
@@ -34,7 +34,7 @@ public class FunctionalitiesTest {
 	}
 
 	@Test
-	public void checkFunctionalities() throws InterruptedException {
+	void checkFunctionalities() throws InterruptedException {
 		assertEquals("Gerenciar reservas", driver.findElement(By.xpath("//*[@id=\"root\"]/div/div/div/a[1]")).getText());
 		assertEquals("Gerenciar quartos", driver.findElement(By.xpath("//*[@id=\"root\"]/div/div/div/a[2]")).getText());
 		assertEquals("Gerenciar hóspedes", driver.findElement(By.xpath("//*[@id=\"root\"]/div/div/div/a[3]")).getText());

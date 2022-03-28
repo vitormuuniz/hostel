@@ -1,12 +1,14 @@
 package br.com.hostel.tests.unit.guest;
 
-import br.com.hostel.exceptions.guest.GuestException;
-import br.com.hostel.initializer.GuestsInitializer;
-import br.com.hostel.model.Address;
-import br.com.hostel.model.Guest;
-import br.com.hostel.repository.AddressRepository;
-import br.com.hostel.repository.GuestRepository;
-import br.com.hostel.service.GuestService;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,18 +18,17 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import br.com.hostel.exceptions.guest.GuestException;
+import br.com.hostel.initializer.GuestsInitializer;
+import br.com.hostel.model.Address;
+import br.com.hostel.model.Guest;
+import br.com.hostel.repository.AddressRepository;
+import br.com.hostel.repository.GuestRepository;
+import br.com.hostel.service.GuestService;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = GuestService.class)
-public class ListGuestsTest {
+class ListGuestsTest {
 
 	@MockBean
 	private GuestRepository guestRepository;
@@ -38,18 +39,17 @@ public class ListGuestsTest {
 	@Autowired
 	private GuestService guestService;
 	
-	private static Address address = new Address();
-	private static Guest guest = new Guest();
-	private static Guest guest2 = new Guest();
-	private static List<Guest> guestsList = new ArrayList<>();
+	private static final Address address = new Address();
+	private static final Guest guest = new Guest();
+	private static final Guest guest2 = new Guest();
+	private static final List<Guest> guestsList = new ArrayList<>();
 
 	@BeforeAll
-	public static void beforeAll() throws Exception {
+	static void beforeAll() {
 		
 		GuestsInitializer.initialize(address, guest);
 		GuestsInitializer.initialize(address, guest2);
 
-		// setting different attributes to second guest
 		guest.setId(13L);
 		guest2.setEmail("francisco@orkut.com");
 		guest2.setName("Francisco");
@@ -61,7 +61,7 @@ public class ListGuestsTest {
 	}
 
 	@Test
-	public void shouldReturnAllGuestsWithoutParamAndStatusOk() {
+	void shouldReturnAllGuestsWithoutParamAndStatusOk() {
 
 		when(guestRepository.findAll()).thenReturn(guestsList);
 		
@@ -71,7 +71,7 @@ public class ListGuestsTest {
 	}
 	
 	@Test
-	public void shouldReturnOneGuestAndStatusOkByParam() {
+	void shouldReturnOneGuestAndStatusOkByParam() {
 
 		List<Guest> n = new ArrayList<>();
 		n.add(guest2);
@@ -85,7 +85,7 @@ public class ListGuestsTest {
 	}
 	
 	@Test
-	public void shouldReturnEmptyListByUsingNonexistentName() {
+	void shouldReturnEmptyListByUsingNonexistentName() {
 		
 		List<Guest> emptyList = new ArrayList<>();
 		
@@ -97,7 +97,7 @@ public class ListGuestsTest {
 	}
 	
 	@Test
-	public void shouldReturnOneGuestAndStatusOkByID() {
+	void shouldReturnOneGuestAndStatusOkByID() {
 
 		Optional<Guest> opGuest = Optional.of(guest);
 		
@@ -111,7 +111,7 @@ public class ListGuestsTest {
 	}
 	
 	@Test
-	public void shouldThrowExceptionByFindAGuestWithNonexistentID() {
+	void shouldThrowExceptionByFindAGuestWithNonexistentID() {
 
 		Optional<Guest> opGuest = Optional.empty();
 		

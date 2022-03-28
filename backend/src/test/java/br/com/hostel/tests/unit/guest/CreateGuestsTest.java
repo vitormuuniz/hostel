@@ -40,17 +40,17 @@ public class CreateGuestsTest {
 	@Autowired
 	private GuestService guestService;
 	
-	private static Address address = new Address();
-	private static Guest guest = new Guest();
+	private static final Address address = new Address();
+	private static final Guest guest = new Guest();
 
 	@BeforeAll
-	public static void beforeAll() throws Exception {
+	public static void beforeAll() {
 		
 		GuestsInitializer.initialize(address, guest);
 	}
 
 	@Test
-	public void shouldCreateOneGuestSuccessfully() {
+	void shouldCreateOneGuestSuccessfully() {
 		
 		Optional<Guest> nonexistentGuest = Optional.empty();
 
@@ -65,7 +65,7 @@ public class CreateGuestsTest {
 	}
 	
 	@Test
-	public void shouldReturnNullWithExistentGuestEmail() {
+	void shouldReturnNullWithExistentGuestEmail() {
 		
 		Optional<Guest> opGuest = Optional.of(guest);
 		

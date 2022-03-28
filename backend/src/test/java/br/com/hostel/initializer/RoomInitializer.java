@@ -15,7 +15,7 @@ import br.com.hostel.model.Room;
 @AutoConfigureMockMvc
 public class RoomInitializer {
 
-	public static void initialize(Room room, DailyRate dailyRate) throws Exception {
+	public static void initialize(Room room, DailyRate dailyRate) {
 		
 		dailyRate.setPrice(400);
 		

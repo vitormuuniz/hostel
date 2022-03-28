@@ -1,6 +1,5 @@
 package br.com.hostel.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -21,14 +20,15 @@ import br.com.hostel.repository.GuestRepository;
 @Configuration
 public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 
-	@Autowired
-	private AutenticationService autenticationService;
-	
-	@Autowired
-	private TokenService tokenService;
+	private final AutenticationService autenticationService;
+	private final TokenService tokenService;
+	private final GuestRepository guestRepository;
 
-	@Autowired
-	private GuestRepository guestRepository;
+	public SecurityConfigurations(AutenticationService autenticationService, TokenService tokenService, GuestRepository guestRepository) {
+		this.autenticationService = autenticationService;
+		this.tokenService = tokenService;
+		this.guestRepository = guestRepository;
+	}
 
 	@Override
 	@Bean

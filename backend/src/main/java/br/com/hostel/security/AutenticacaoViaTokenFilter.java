@@ -11,14 +11,12 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import br.com.hostel.model.Guest;
 import br.com.hostel.repository.GuestRepository;
 
 public class AutenticacaoViaTokenFilter extends OncePerRequestFilter {
 
-	private TokenService tokenService;
-
-	private GuestRepository repository;
+	private final TokenService tokenService;
+	private final GuestRepository repository;
 
 	public AutenticacaoViaTokenFilter(TokenService tokenService, GuestRepository repository) {
 		this.tokenService = tokenService;
@@ -41,22 +39,23 @@ public class AutenticacaoViaTokenFilter extends OncePerRequestFilter {
 	private void autenticarCliente(String token) {
 		Long idUsuario = tokenService.getIdUsuario(token);
 
-		Guest guest = repository.findById(idUsuario).get();
-		
-		UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(guest, null,
-				guest.getAuthorities());
-		
-		SecurityContextHolder.getContext().setAuthentication(authentication);
+
+		repository.findById(idUsuario).ifPresent(guest ->
+			SecurityContextHolder.getContext().setAuthentication(
+					new UsernamePasswordAuthenticationToken(guest, null, guest.getAuthorities()))
+		);
+
 	}
 
 	private String recuperarToken(HttpServletRequest request) {
 		
 		String token = request.getHeader("Authorization");
 		
-		if (token == null || !token.startsWith("Bearer "))
+		if (token == null || !token.startsWith("Bearer ")) {
 			return null;
-		else
-			return token.substring(7);
+		}
+
+		return token.substring(7);
 	}
 
 }

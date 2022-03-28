@@ -1,12 +1,10 @@
 package br.com.hostel.controller.dto;
 
-import br.com.hostel.model.helper.Role;
+import br.com.hostel.model.enums.Role;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 public class LoginDto {
 

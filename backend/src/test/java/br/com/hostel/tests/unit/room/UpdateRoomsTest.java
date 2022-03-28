@@ -25,7 +25,7 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-public class UpdateRoomsTest {
+class UpdateRoomsTest {
 
 	@MockBean
 	private RoomRepository roomRepository;
@@ -39,17 +39,17 @@ public class UpdateRoomsTest {
 	@Autowired
 	private RoomService service;
 	
-	private static Room room = new Room();
-	private static DailyRate dailyRate = new DailyRate();
+	private static final Room room = new Room();
+	private static final DailyRate dailyRate = new DailyRate();
 
 	@BeforeAll
-	public static void beforeAll() throws Exception {
+	static void beforeAll() {
 
 		RoomInitializer.initialize(room, dailyRate);
 	}
 
 	@Test
-	public void shouldUpdateRoomNumberAndDescription() {
+	void shouldUpdateRoomNumberAndDescription() {
 
 		Optional<Room> opRoom = Optional.of(room);
 		
@@ -67,7 +67,7 @@ public class UpdateRoomsTest {
 	}
 	
 	@Test
-	public void shouldNotUpdateRoomWithNonexistentID() {
+	void shouldNotUpdateRoomWithNonexistentID() {
 		
 		Optional<Room> nonexistentRoom = Optional.empty();
 		

@@ -28,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @AutoConfigureMockMvc
-public class DeleteReservationsTest {
+class DeleteReservationsTest {
 
 	@Autowired
 	private ReservationRepository reservationRepository;
@@ -46,13 +46,13 @@ public class DeleteReservationsTest {
 	private ObjectMapper objectMapper;
 	
 	private URI uri;
-	private HttpHeaders headers = new HttpHeaders();
-	private ReservationForm reservationForm = new ReservationForm();
-	private CheckPayment checkPayment = new CheckPayment();
-	private List<Long> rooms_ID = new ArrayList<>();
+	private final HttpHeaders headers = new HttpHeaders();
+	private final ReservationForm reservationForm = new ReservationForm();
+	private final CheckPayment checkPayment = new CheckPayment();
+	private final List<Long> rooms_ID = new ArrayList<>();
 	
 	@BeforeEach
-	public void init() throws Exception {
+	void init() throws Exception {
 		
 		uri = new URI("/api/reservations/");
 		
@@ -60,7 +60,7 @@ public class DeleteReservationsTest {
 	}
 	
 	@Test
-	public void shouldReturnNotFoundStatusWhenDeletingAReservationWithNonExistentID() throws Exception {
+	void shouldReturnNotFoundStatusWhenDeletingAReservationWithNonExistentID() throws Exception {
 
 		paymentRepository.save(reservationForm.getPayment());
 		reservationRepository.save(reservationForm.returnReservation(roomRepository));
@@ -73,7 +73,7 @@ public class DeleteReservationsTest {
 	}
 	
 	@Test
-	public void shouldAuthenticateAndDeleteOneReservationWithId1() throws Exception {
+	void shouldAuthenticateAndDeleteOneReservationWithId1() throws Exception {
 
 		paymentRepository.save(reservationForm.getPayment());
 		reservationRepository.save(reservationForm.returnReservation(roomRepository));

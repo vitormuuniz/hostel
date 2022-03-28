@@ -19,8 +19,12 @@ import java.util.List;
 @RequestMapping("/api/reservations")
 public class ReservationController {
 	
+	private final ReservationService reservationService;
+
 	@Autowired
-	private ReservationService reservationService;
+	public ReservationController(ReservationService reservationService) {
+		this.reservationService = reservationService;
+	}
 
 	@PostMapping
 	public ResponseEntity<ReservationDto> registerReservation(@RequestBody @Valid ReservationForm form,

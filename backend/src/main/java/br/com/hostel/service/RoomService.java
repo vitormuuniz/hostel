@@ -11,12 +11,10 @@ import java.util.stream.Stream;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.hostel.controller.form.RoomForm;
 import br.com.hostel.controller.form.RoomUpdateForm;
@@ -31,14 +29,18 @@ import br.com.hostel.repository.RoomRepository;
 @Service
 public class RoomService {
 
-	@Autowired
-	private RoomRepository roomRepository;
+	private static final String ROOM_NOT_FOUND = "Room ID haven't found";
+
+	private final RoomRepository roomRepository;
+	private final DailyRateRepository dailyRateRepository;
+	private final ReservationRepository reservationRepository;
 
 	@Autowired
-	private DailyRateRepository dailyRateRepository;
-
-	@Autowired
-	private ReservationRepository reservationRepository;
+	public RoomService(RoomRepository roomRepository, DailyRateRepository dailyRateRepository, ReservationRepository reservationRepository) {
+		this.roomRepository = roomRepository;
+		this.dailyRateRepository = dailyRateRepository;
+		this.reservationRepository = reservationRepository;
+	}
 
 	public Room registerRoom(RoomForm form) throws RoomException {
 
@@ -46,9 +48,7 @@ public class RoomService {
 		Optional<Room> roomOp = roomRepository.findByNumber(room.getNumber());
 
 		if (roomOp.isPresent()) {
-			throw new 
-			RoomException("There is already a room with number = " + room.getNumber(),
-					HttpStatus.BAD_REQUEST);
+			throw new RoomException("There is already a room with number = " + room.getNumber(), HttpStatus.BAD_REQUEST);
 		}
 
 		return roomRepository.save(room);
@@ -67,105 +67,93 @@ public class RoomService {
 
 			List<Reservation> reservationsList = reservationRepository.findAll();
 
-			reservationsList.forEach(reservation -> {
+			reservationsList.forEach(reservation ->
+					verifyValidRoomsWithinAPeriod(unavailableRooms, checkinDate, checkoutDate, reservation));
 
-				verifyValidRoomsWithinAPeriod(unavailableRooms, checkinDate, checkoutDate, reservation);
-
-			});
-
-			unavailableRooms.forEach(availableRooms::remove);
+			availableRooms.removeAll(unavailableRooms);
 		}
 
 		return availableRooms;
 	}
 
+	private void verifyValidRooms(RoomFilter roomFilter, List<Room> unavailableRooms, List<Room> availableRooms) {
+
+		if (roomFilter.getMinDailyRate() != null) {
+			unavailableRooms.addAll(
+					availableRooms
+							.stream()
+							.filter(room -> room.getDailyRate().getPrice() < roomFilter.getMinDailyRate())
+							.collect(Collectors.toList())
+			);
+		}
+
+
+		if (roomFilter.getMaxDailyRate() != null) {
+			unavailableRooms.addAll(
+					availableRooms
+							.stream()
+							.filter(room -> room.getDailyRate().getPrice() > roomFilter.getMaxDailyRate())
+							.collect(Collectors.toList())
+			);
+		}
+
+		if (roomFilter.getNumberOfGuests() != null) {
+			unavailableRooms.addAll(
+					availableRooms
+							.stream()
+							.filter(room -> room.getMaxNumberOfGuests() < roomFilter.getNumberOfGuests())
+							.collect(Collectors.toList())
+			);
+		}
+
+		availableRooms.removeAll(unavailableRooms);
+	}
+
+	private void verifyValidRoomsWithinAPeriod(List<Room> unavailableRooms, LocalDate checkinDate,
+											   LocalDate checkoutDate, Reservation reservation) {
+		long numOfDays = ChronoUnit.DAYS.between(reservation.getCheckinDate(), reservation.getCheckoutDate());
+
+		List<LocalDate> dates = Stream.iterate(reservation.getCheckinDate(), date -> date.plusDays(1))
+				.limit(numOfDays)
+				.collect(Collectors.toList());
+
+		if ((dates.contains(checkinDate) || dates.contains(checkoutDate))
+				|| (checkinDate.isBefore(reservation.getCheckinDate()) && checkoutDate.isAfter(reservation.getCheckoutDate())
+				|| checkoutDate.isEqual(reservation.getCheckoutDate()))) {
+
+			unavailableRooms.addAll(
+					reservation.getRooms()
+							.stream()
+							.filter(room -> !unavailableRooms.contains(room))
+							.collect(Collectors.toList())
+			);
+		}
+	}
+
 	public Room listOneRoom(Long id) throws RoomException {
-
-		Optional<Room> room = roomRepository.findById(id);
-
-		if (room.isEmpty())
-			throw new RoomException("Room ID haven't found", HttpStatus.NOT_FOUND);
-
-		return room.get();
-
+		return roomRepository.findById(id).orElseThrow(() -> new RoomException(ROOM_NOT_FOUND, HttpStatus.NOT_FOUND));
 	}
 
 	public Room updateRoom(@PathVariable Long id, @RequestBody @Valid RoomUpdateForm form) throws RoomException {
 
-		Optional<Room> roomOp = roomRepository.findById(id);
+		Room roomDB = roomRepository.findById(id).orElseThrow(() -> new RoomException(ROOM_NOT_FOUND, HttpStatus.NOT_FOUND));
 
-		if (roomOp.isEmpty())
-			throw new RoomException("Room ID haven't found", HttpStatus.NOT_FOUND);
+		Room roomToBeUpdated = form.updateRoomForm(roomDB, roomRepository);
 
-		Room room = form.updateRoomForm(roomOp.get(), roomRepository);
+		dailyRateRepository.save(roomToBeUpdated.getDailyRate());
 
-		dailyRateRepository.save(room.getDailyRate());
-
-		roomRepository.save(room);
+		roomRepository.save(roomToBeUpdated);
 		
-		return room;
+		return roomToBeUpdated;
 	}
 
 	public void deleteRoom(Long id) throws RoomException {
+		Optional<Room> roomOp = roomRepository.findById(id);
 
-		Optional<Room> room = roomRepository.findById(id);
-
-		if (room.isEmpty())
-			throw new RoomException("Room ID haven't found", HttpStatus.NOT_FOUND);
+		if (roomOp.isEmpty()) {
+			throw new RoomException(ROOM_NOT_FOUND, HttpStatus.NOT_FOUND);
+		}
 
 		roomRepository.deleteById(id);
-	}
-
-	private void verifyValidRooms(RoomFilter roomFilter, List<Room> unavailableRooms, List<Room> availableRooms) {
-
-		if (roomFilter.getMinDailyRate() != null) {
-			availableRooms.forEach(room -> {
-				if (room.getDailyRate().getPrice() < roomFilter.getMinDailyRate()) {
-					unavailableRooms.add(room);
-				}
-			});
-		}
-
-		unavailableRooms.forEach(availableRooms::remove);
-
-		if (roomFilter.getMaxDailyRate() != null) {
-			availableRooms.forEach(room -> {
-				if (room.getDailyRate().getPrice() > roomFilter.getMaxDailyRate()) {
-					unavailableRooms.add(room);
-				}
-			});
-		}
-
-		unavailableRooms.forEach(availableRooms::remove);
-
-		if (roomFilter.getNumberOfGuests() != null) {
-			availableRooms.forEach(room -> {
-				if (room.getMaxNumberOfGuests() < roomFilter.getNumberOfGuests()) {
-					unavailableRooms.add(room);
-				}
-			});
-		}
-
-		unavailableRooms.forEach(availableRooms::remove);
-	}
-
-	private void verifyValidRoomsWithinAPeriod(List<Room> unavailableRooms, LocalDate checkinDate,
-			LocalDate checkoutDate, Reservation reservation) {
-		long numOfDays = ChronoUnit.DAYS.between(reservation.getCheckinDate(), reservation.getCheckoutDate());
-
-		List<LocalDate> dates = Stream.iterate(reservation.getCheckinDate(), date -> date.plusDays(1)).limit(numOfDays)
-				.collect(Collectors.toList());
-
-		if ((dates.contains(checkinDate) || dates.contains(checkoutDate))
-				|| (checkinDate.isBefore(reservation.getCheckinDate())
-						&& checkoutDate.isAfter(reservation.getCheckoutDate())
-						|| checkoutDate.isEqual(reservation.getCheckoutDate()))) {
-
-			reservation.getRooms().forEach(room -> {
-				if (!unavailableRooms.contains(room)) {
-					unavailableRooms.add(room);
-				}
-			});
-		}
 	}
 }

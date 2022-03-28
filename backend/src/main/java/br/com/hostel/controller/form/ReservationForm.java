@@ -40,7 +40,7 @@ public class ReservationForm {
 		
 		Set<Room> roomsList = new HashSet<>();
 
-		rooms_ID.forEach(id -> roomsList.add(roomRepository.findById(id).get()));
+		rooms_ID.forEach(id -> roomRepository.findById(id).ifPresent(roomsList::add));
 
 		return new Reservation(guest_ID, guestName, numberOfGuests, LocalDate.now(), checkinDate, checkoutDate, 
 				roomsList, payment);

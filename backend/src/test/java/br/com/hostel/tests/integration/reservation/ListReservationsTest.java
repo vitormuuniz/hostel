@@ -37,7 +37,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @AutoConfigureMockMvc
-public class ListReservationsTest {
+class ListReservationsTest {
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -46,16 +46,16 @@ public class ListReservationsTest {
 	private ObjectMapper objectMapper;
 	
 	private static URI uri;
-	private static HttpHeaders headers = new HttpHeaders();
+	private static final HttpHeaders headers = new HttpHeaders();
 	private static Reservation reservation1, reservation2;
-	private static CheckPayment checkPayment = new CheckPayment();
-	private static ReservationForm reservationForm = new ReservationForm();
+	private static final CheckPayment checkPayment = new CheckPayment();
+	private static final ReservationForm reservationForm = new ReservationForm();
 	private static Guest guest = new Guest();
-	private static List<Long> rooms_ID = new ArrayList<>();
-	private static Set<Reservation> reservationsList = new HashSet<>();
+	private static final List<Long> rooms_ID = new ArrayList<>();
+	private static final Set<Reservation> reservationsList = new HashSet<>();
 	
 	@BeforeAll
-    public static void beforeAll(@Autowired ReservationRepository reservationRepository, 
+    static void beforeAll(@Autowired ReservationRepository reservationRepository, 
     		@Autowired PaymentRepository paymentRepository, @Autowired GuestRepository guestRepository, 
     		@Autowired RoomRepository roomRepository, @Autowired MockMvc mockMvc, 
     		@Autowired ObjectMapper objectMapper) throws Exception {
@@ -78,14 +78,14 @@ public class ListReservationsTest {
 		reservation2 = reservationRepository.save(reservationForm.returnReservation(roomRepository));
 		reservationsList.add(reservation2);
 		
-		guest = guestRepository.findById(reservationForm.getGuest_ID()).get();
-		
-		guest.setReservations(reservationsList);
-		guestRepository.save(guest);   
+		guestRepository.findById(reservationForm.getGuest_ID()).ifPresent(guest -> {
+			guest.setReservations(reservationsList);
+			ListReservationsTest.guest = guestRepository.save(guest);
+		});
 	}
 	
 	@Test
-	public void shouldReturnAllReservationsWithoutParam() throws Exception {
+	void shouldReturnAllReservationsWithoutParam() throws Exception {
 
 		MvcResult result = 
 				mockMvc.perform(get(uri)
@@ -102,7 +102,7 @@ public class ListReservationsTest {
 	}
 	
 	@Test
-	public void shouldReturnAllReservationsByGuestId() throws Exception {
+	void shouldReturnAllReservationsByGuestId() throws Exception {
 
 		MvcResult result = 
 				mockMvc.perform(get(uri)
@@ -121,7 +121,7 @@ public class ListReservationsTest {
 	}
 	
 	@Test
-	public void shouldReturnOneReservationById() throws Exception {
+	void shouldReturnOneReservationById() throws Exception {
 
 		MvcResult result = 
 				mockMvc.perform(get(uri  + "1")
@@ -139,7 +139,7 @@ public class ListReservationsTest {
 	}
 	
 	@Test
-	public void shouldReturnNotFoundStatusWithNonExistentReservationsId() throws Exception {
+	void shouldReturnNotFoundStatusWithNonExistentReservationsId() throws Exception {
 
 		mockMvc.perform(get(uri  + String.valueOf(Long.MAX_VALUE))
 				.headers(headers))
@@ -149,7 +149,7 @@ public class ListReservationsTest {
 	}
 	
 	@Test
-	public void shouldReturnNotFoundStatusAndNullBodyByUsingWrongParam() throws Exception {
+	void shouldReturnNotFoundStatusAndNullBodyByUsingWrongParam() throws Exception {
 
 		MvcResult result = 
 				mockMvc.perform(get(uri)

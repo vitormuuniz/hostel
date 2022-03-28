@@ -8,7 +8,7 @@ import java.util.Set;
 import br.com.hostel.model.Address;
 import br.com.hostel.model.Guest;
 import br.com.hostel.model.Reservation;
-import br.com.hostel.model.helper.Role;
+import br.com.hostel.model.enums.Role;
 import lombok.Getter;
 import lombok.Setter;
 

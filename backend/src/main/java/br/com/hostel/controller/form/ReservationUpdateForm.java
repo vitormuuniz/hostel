@@ -50,7 +50,7 @@ public class ReservationUpdateForm {
 		if (rooms_ID != null) {
 			Set<Room> roomsList = new HashSet<>();
 
-			rooms_ID.forEach(id -> roomsList.add(roomRepository.findById(id).get()));
+			rooms_ID.forEach(id -> roomRepository.findById(id).ifPresent(roomsList::add));
 
 			reservation.setRooms(roomsList);
 		}

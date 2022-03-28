@@ -4,24 +4,24 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDate;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
-import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 import br.com.hostel.model.Guest;
 
 @RunWith(JUnitPlatform.class)
-public class LoginTest {
+class LoginTest {
 
-	ChromeConnection chromeConnection = new ChromeConnection();
-	WebDriver driver = chromeConnection.Connection();
-	Guest existentGuest, nonExistentGuest;
+	private final ChromeConnection chromeConnection = new ChromeConnection();
+	private final WebDriver driver = chromeConnection.Connection();
+	private Guest existentGuest, nonExistentGuest;
 
 	@BeforeEach
-	public void init() {
+	void init() {
 		existentGuest = new Guest("maria@email.com", "123456");
 		nonExistentGuest = new Guest("random@gmail.com", "123456");
 		
@@ -30,7 +30,7 @@ public class LoginTest {
 	}
 
 	@Test
-	public void loginANonExistentGuest() throws InterruptedException {
+	void loginANonExistentGuest() throws InterruptedException {
 
 		driver.findElement(By.xpath("//*[@id=\"root\"]/div/div/section/form/input[1]"))
 				.sendKeys(nonExistentGuest.getEmail());
@@ -49,7 +49,7 @@ public class LoginTest {
 	}
 
 	@Test
-	public void registerAnExistentGuest() throws InterruptedException {
+	void registerAnExistentGuest() throws InterruptedException {
 
 		driver.findElement(By.xpath("//*[@id=\"root\"]/div/div/section/form/input[1]"))
 				.sendKeys(existentGuest.getEmail());
@@ -66,7 +66,7 @@ public class LoginTest {
 		driver.close();
 	}
 
-	public String convertLocalDateIntoBrazilianString(LocalDate birthday) {
+	String convertLocalDateIntoBrazilianString(LocalDate birthday) {
 		return (birthday.getDayOfMonth() < 10 ? (0 + "" + birthday.getDayOfMonth()) : birthday.getDayOfMonth()) + ""
 				+ (birthday.getMonth().getValue() < 10 ? (0 + "" + birthday.getMonth().getValue())
 						: birthday.getMonth().getValue())

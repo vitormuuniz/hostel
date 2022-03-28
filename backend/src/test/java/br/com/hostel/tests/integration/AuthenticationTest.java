@@ -20,7 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @AutoConfigureMockMvc
-public class AuthenticationTest {
+class AuthenticationTest {
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -28,10 +28,10 @@ public class AuthenticationTest {
 	@Autowired
 	private ObjectMapper objectMapper;
 
-	private LoginForm login = new LoginForm();
+	private final LoginForm login = new LoginForm();
 	
 	@Test
-	public void shouldAuthenticateAndReturnStatusOK() throws Exception {
+	void shouldAuthenticateAndReturnStatusOK() throws Exception {
 		login.setEmail("maria@email.com");
 		login.setPassword("123456");
 
@@ -50,7 +50,7 @@ public class AuthenticationTest {
 	}
 	
 	@Test
-	public void shouldNotAuthenticateByWrongPasswordAndReturnStatusBadRequest() throws Exception {
+	void shouldNotAuthenticateByWrongPasswordAndReturnStatusBadRequest() throws Exception {
 		login.setEmail("maria@email.com");
 		login.setPassword("wrong password");
 		
@@ -63,7 +63,7 @@ public class AuthenticationTest {
 	}
 	
 	@Test
-	public void shouldNotAuthenticateByNonexistentUserAndReturnStatusBadRequest() throws Exception {
+	void shouldNotAuthenticateByNonexistentUserAndReturnStatusBadRequest() throws Exception {
 		login.setEmail("nonexistent@email.com");
 		login.setPassword("wrong password");
 		

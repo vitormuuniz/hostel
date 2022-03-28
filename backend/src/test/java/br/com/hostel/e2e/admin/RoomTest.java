@@ -13,13 +13,13 @@ import org.openqa.selenium.WebDriver;
 import br.com.hostel.e2e.ChromeConnection;
 
 @RunWith(JUnitPlatform.class)
-public class RoomTest {
+class RoomTest {
 
-	ChromeConnection chromeConnection = new ChromeConnection();
-	WebDriver driver = chromeConnection.Connection();
+	private final ChromeConnection chromeConnection = new ChromeConnection();
+	private final WebDriver driver = chromeConnection.Connection();
 
 	@BeforeEach
-	public void init() throws InterruptedException {
+	void init() throws InterruptedException {
 		// make login
 		driver.get("http://localhost:3000/");
 		driver.manage().window().maximize();
@@ -34,7 +34,7 @@ public class RoomTest {
 	}
 
 	@Test
-	public void registerANewRoom() throws InterruptedException {
+	void registerANewRoom() throws InterruptedException {
 
 		driver.findElement(By.xpath("//*[@id=\"root\"]/div/div/header/a")).click();
 		Thread.sleep(3000);
@@ -64,7 +64,7 @@ public class RoomTest {
 	}
 
 	@Test
-	public void deleteRoom() throws InterruptedException {
+	void deleteRoom() throws InterruptedException {
 
 		driver.findElement(By.xpath("//*[@id=\"root\"]/div/div/ul/li[2]/button")).click();
 		Thread.sleep(3000);

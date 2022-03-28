@@ -10,7 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import br.com.hostel.model.Address;
 import br.com.hostel.model.Guest;
-import br.com.hostel.model.helper.Role;
+import br.com.hostel.model.enums.Role;
 import br.com.hostel.repository.AddressRepository;
 
 @Getter

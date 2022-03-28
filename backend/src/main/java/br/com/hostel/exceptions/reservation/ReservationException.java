@@ -13,6 +13,6 @@ public class ReservationException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 	
-	private String message;
-	private HttpStatus httpStatus;
+	private final String message;
+	private final HttpStatus httpStatus;
 }

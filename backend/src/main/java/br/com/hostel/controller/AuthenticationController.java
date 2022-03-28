@@ -24,11 +24,14 @@ import br.com.hostel.security.TokenService;
 @CrossOrigin(origins ="*", allowedHeaders = "*")
 public class AuthenticationController {
 
+	private final AuthenticationManager authManager;
+	private final TokenService tokenService;
+
 	@Autowired
-	private AuthenticationManager authManager;
-	
-	@Autowired
-	private TokenService tokenService;
+	public AuthenticationController(AuthenticationManager authManager, TokenService tokenService) {
+		this.authManager = authManager;
+		this.tokenService = tokenService;
+	}
 
 	@PostMapping
 	public ResponseEntity<LoginDto> authenticate(@RequestBody @Valid LoginForm form){

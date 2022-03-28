@@ -18,19 +18,19 @@ import org.openqa.selenium.WebDriver;
 import br.com.hostel.e2e.ChromeConnection;
 import br.com.hostel.model.Address;
 import br.com.hostel.model.Guest;
-import br.com.hostel.model.helper.Role;
+import br.com.hostel.model.enums.Role;
 
 @RunWith(JUnitPlatform.class)
 @TestMethodOrder(OrderAnnotation.class)
-public class GuestTest {
+class GuestTest {
 
-	ChromeConnection chromeConnection = new ChromeConnection();
-	WebDriver driver = chromeConnection.Connection();
+	private final ChromeConnection chromeConnection = new ChromeConnection();
+	private final WebDriver driver = chromeConnection.Connection();
 
 	Guest newGuest;
 	
 	@BeforeEach
-	public void init() throws InterruptedException {
+	void init() throws InterruptedException {
 		// make login
 		driver.get("http://localhost:3000/");
 		driver.manage().window().maximize();
@@ -46,7 +46,7 @@ public class GuestTest {
 	
 	@Test
 	@Order(1)
-	public void registerANewGuest() throws InterruptedException {
+	void registerANewGuest() throws InterruptedException {
 		
 		Address newAddress = new Address("Arena Corinthians", "99999-000", "São Paulo", "SP", "Brasil");
 		newGuest = new Guest("Melhor Goleiro", "Cássio", "Ramos", LocalDate.of(1987, 6, 6), newAddress,
@@ -99,7 +99,7 @@ public class GuestTest {
 	
 	@Test
 	@Order(2)
-	public void updateGuest() throws InterruptedException {
+	void updateGuest() throws InterruptedException {
 		
 		driver.findElement(By.xpath("//*[@id=\"root\"]/div/div/ul/li[2]/button[2]")).click();
 		Thread.sleep(3000);
@@ -125,7 +125,7 @@ public class GuestTest {
 	
 	@Test
 	@Order(3)
-	public void deleteGuest() throws InterruptedException {
+	void deleteGuest() throws InterruptedException {
 		
 		driver.findElement(By.xpath("//*[@id=\"root\"]/div/div/ul/li[3]/button[1]")).click();
 		Thread.sleep(3000);
@@ -142,7 +142,7 @@ public class GuestTest {
 		
 	}
 	
-	public String convertLocalDateIntoBrazilianString(LocalDate birthday) {
+	String convertLocalDateIntoBrazilianString(LocalDate birthday) {
 		return (birthday.getDayOfMonth() < 10 ? (0 + "" + birthday.getDayOfMonth()) : birthday.getDayOfMonth()) + ""
 				+ (birthday.getMonth().getValue() < 10 ? (0 + "" + birthday.getMonth().getValue())
 						: birthday.getMonth().getValue())
