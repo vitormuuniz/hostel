@@ -1,6 +1,6 @@
 package br.com.hostel.tests.integration.reservation.delete;
 
-import br.com.hostel.controllers.form.ReservationForm;
+import br.com.hostel.models.form.ReservationForm;
 import br.com.hostel.initializer.ReservationInitializer;
 import br.com.hostel.models.CheckPayment;
 import br.com.hostel.repositories.PaymentRepository;

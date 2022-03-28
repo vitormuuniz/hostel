@@ -1,10 +1,10 @@
 package br.com.hostel.controllers;
 
-import br.com.hostel.controllers.dto.RoomDto;
-import br.com.hostel.controllers.form.RoomForm;
-import br.com.hostel.controllers.form.RoomUpdateForm;
-import br.com.hostel.controllers.helper.RoomFilter;
-import br.com.hostel.exceptions.room.RoomException;
+import br.com.hostel.models.dto.RoomDto;
+import br.com.hostel.models.form.RoomForm;
+import br.com.hostel.models.form.RoomUpdateForm;
+import br.com.hostel.models.helper.RoomFilter;
+import br.com.hostel.exceptions.RoomException;
 import br.com.hostel.models.Room;
 import br.com.hostel.services.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +47,7 @@ public class RoomController {
 		List<Room> roomList = this.roomService.listAllRooms(
 				new RoomFilter(checkinDate, checkoutDate, numberOfGuests, minDailyRate, maxDailyRate));
 		
-		return ResponseEntity.ok(RoomDto.convert(roomList));
+		return ResponseEntity.ok(RoomDto.parseToDto(roomList));
 		
 	}
 

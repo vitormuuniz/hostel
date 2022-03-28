@@ -20,8 +20,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import br.com.hostel.controllers.helper.RoomFilter;
-import br.com.hostel.exceptions.room.RoomException;
+import br.com.hostel.models.helper.RoomFilter;
+import br.com.hostel.exceptions.RoomException;
 import br.com.hostel.models.DailyRate;
 import br.com.hostel.models.Reservation;
 import br.com.hostel.models.Room;

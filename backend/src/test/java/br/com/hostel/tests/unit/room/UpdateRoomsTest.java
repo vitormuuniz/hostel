@@ -1,7 +1,7 @@
 package br.com.hostel.tests.unit.room;
 
-import br.com.hostel.controllers.form.RoomUpdateForm;
-import br.com.hostel.exceptions.room.RoomException;
+import br.com.hostel.models.form.RoomUpdateForm;
+import br.com.hostel.exceptions.RoomException;
 import br.com.hostel.initializer.RoomInitializer;
 import br.com.hostel.models.DailyRate;
 import br.com.hostel.models.Room;
@@ -57,7 +57,6 @@ class UpdateRoomsTest {
 		opRoom.get().setDescription("Room updated");
 
 		when(roomRepository.findById(room.getId())).thenReturn(opRoom);
-		when(form.updateRoomForm(room, roomRepository)).thenReturn(room);
 		when(dailyRepository.save(room.getDailyRate())).thenReturn(dailyRate);
 		
 		Room reqRoom = service.updateRoom(room.getId(), form);

@@ -1,6 +1,6 @@
-package br.com.hostel.controllers.dto;
+package br.com.hostel.models.dto;
 
-import br.com.hostel.models.enums.Role;
+import br.com.hostel.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.hostel.controllers.dto.LoginDto;
-import br.com.hostel.controllers.form.LoginForm;
+import br.com.hostel.models.dto.LoginDto;
+import br.com.hostel.models.form.LoginForm;
 import br.com.hostel.models.Guest;
 import br.com.hostel.security.TokenService;
 

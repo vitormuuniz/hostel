@@ -18,7 +18,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import br.com.hostel.exceptions.guest.GuestException;
+import br.com.hostel.exceptions.GuestException;
 import br.com.hostel.initializer.GuestsInitializer;
 import br.com.hostel.models.Address;
 import br.com.hostel.models.Guest;

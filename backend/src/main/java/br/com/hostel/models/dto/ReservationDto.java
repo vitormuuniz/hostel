@@ -1,4 +1,4 @@
-package br.com.hostel.controllers.dto;
+package br.com.hostel.models.dto;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -38,7 +38,7 @@ public class ReservationDto {
 		this.numberOfGuests = reservation.getNumberOfGuests();
 	}
 
-	public static List<ReservationDto> convert(List<Reservation> reservationsList) {
+	public static List<ReservationDto> parseToDto(List<Reservation> reservationsList) {
 	
 		List<ReservationDto> reservationDtoList = new ArrayList<>();
 		

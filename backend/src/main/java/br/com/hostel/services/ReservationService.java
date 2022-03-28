@@ -13,10 +13,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import br.com.hostel.controllers.form.ReservationForm;
-import br.com.hostel.controllers.form.ReservationUpdateForm;
-import br.com.hostel.exceptions.guest.GuestException;
-import br.com.hostel.exceptions.reservation.ReservationException;
+import br.com.hostel.models.form.ReservationForm;
+import br.com.hostel.models.form.ReservationUpdateForm;
+import br.com.hostel.exceptions.GuestException;
+import br.com.hostel.exceptions.ReservationException;
 import br.com.hostel.models.Guest;
 import br.com.hostel.models.Reservation;
 import br.com.hostel.repositories.GuestRepository;
@@ -87,19 +87,16 @@ public class ReservationService {
 
 	public Reservation updateReservation(@PathVariable Long id, @RequestBody @Valid ReservationUpdateForm form) {
 
-		Reservation reservationDB = reservationRepository.findById(id)
+		Reservation reservation = reservationRepository.findById(id)
 				.orElseThrow(() -> new ReservationException(RESERVATION_NOT_FOUND + id, HttpStatus.NOT_FOUND));
 
-		Reservation reservationToBeUpdated = form.updateReservationForm(reservationDB, roomRepository);
+		reservation.setParamsIfIsNonNullOrEmpty(form, roomRepository);
 
-		if (reservationToBeUpdated.getRooms().isEmpty())
-			throw new ReservationException("Reservation rooms list cannot be empty", HttpStatus.BAD_REQUEST);
+		roomRepository.saveAll(reservation.getRooms());
 
-		roomRepository.saveAll(reservationToBeUpdated.getRooms());
+		paymentRepository.save(reservation.getPayment());
 
-		paymentRepository.save(reservationToBeUpdated.getPayment());
-
-		return reservationToBeUpdated;
+		return reservation;
 	}
 
 	public void deleteReservation(Long id) {

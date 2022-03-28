@@ -1,8 +1,8 @@
 package br.com.hostel.tests.integration.reservation;
 
-import br.com.hostel.controllers.dto.ReservationDto;
-import br.com.hostel.controllers.form.ReservationForm;
-import br.com.hostel.controllers.form.ReservationUpdateForm;
+import br.com.hostel.models.dto.ReservationDto;
+import br.com.hostel.models.form.ReservationForm;
+import br.com.hostel.models.form.ReservationUpdateForm;
 import br.com.hostel.initializer.ReservationInitializer;
 import br.com.hostel.models.CheckPayment;
 import br.com.hostel.models.Reservation;
@@ -23,6 +23,7 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -120,7 +121,7 @@ class UpdateReservationsTest {
 		rsvToUpdate.setNumberOfGuests(3);
 		rsvToUpdate.setPayment(reservation.getPayment());
 		rsvToUpdate.getPayment().setAmount(5500);
-		rsvToUpdate.setRooms_ID(null);
+		rsvToUpdate.setRooms_ID(Collections.singletonList(Long.MAX_VALUE));
 		
 		reservation.setRooms(null);
 		

@@ -1,4 +1,4 @@
-package br.com.hostel.controllers.dto;
+package br.com.hostel.models.dto;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -8,7 +8,7 @@ import java.util.Set;
 import br.com.hostel.models.Address;
 import br.com.hostel.models.Guest;
 import br.com.hostel.models.Reservation;
-import br.com.hostel.models.enums.Role;
+import br.com.hostel.enums.Role;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -40,7 +40,7 @@ public class GuestDto {
 		this.reservations = guest.getReservations();
 	}
 
-	public static List<GuestDto> converter(List<Guest> guestsList) {
+	public static List<GuestDto> parseToDto(List<Guest> guestsList) {
 
 		List<GuestDto> guestsDtoList = new ArrayList<>();
 		
