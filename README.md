@@ -1,4 +1,4 @@
-# HostelApp
+# HostelApp [![Java CI with Maven](https://github.com/vitormuuniz/hostel/actions/workflows/maven-publish.yml/badge.svg)](https://github.com/vitormuuniz/hostel/actions/workflows/maven-publish.yml)
 
 Computer Science final paper whose goal is to show the importance of software tests, applied in an 
 application that simulates a hostel reservation system.<br>
