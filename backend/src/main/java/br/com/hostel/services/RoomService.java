@@ -138,7 +138,7 @@ public class RoomService {
 
 		Room room = roomRepository.findById(id).orElseThrow(() -> new RoomException(ROOM_NOT_FOUND, HttpStatus.NOT_FOUND));
 
-		room.setParamIfIsNotNull(form, roomRepository);
+		room.setParamsIfIsNonNullOrEmpty(form, roomRepository);
 
 		dailyRateRepository.save(room.getDailyRate());
 

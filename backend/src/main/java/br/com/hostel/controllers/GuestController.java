@@ -41,7 +41,7 @@ public class GuestController {
 
 		List<Guest> response = guestService.listAllGuests(name);
 
-		return ResponseEntity.ok(GuestDto.converter(response));
+		return ResponseEntity.ok(GuestDto.parseToDto(response));
 
 	}
 

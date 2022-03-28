@@ -64,7 +64,7 @@ public class GuestService {
 		Guest guest = guestRepository.findById(id)
 				.orElseThrow(() -> new GuestException(GUEST_NOT_FOUND + id, HttpStatus.NOT_FOUND));
 
-		guest.setParamIfIsNotNull(form);
+		guest.setParamsIfIsNonNullOrEmpty(form);
 
 		addressRepository.save(guest.getAddress());
 

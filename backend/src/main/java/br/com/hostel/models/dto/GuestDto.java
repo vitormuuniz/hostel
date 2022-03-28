@@ -40,7 +40,7 @@ public class GuestDto {
 		this.reservations = guest.getReservations();
 	}
 
-	public static List<GuestDto> converter(List<Guest> guestsList) {
+	public static List<GuestDto> parseToDto(List<Guest> guestsList) {
 
 		List<GuestDto> guestsDtoList = new ArrayList<>();
 		

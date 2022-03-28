@@ -47,7 +47,7 @@ public class RoomController {
 		List<Room> roomList = this.roomService.listAllRooms(
 				new RoomFilter(checkinDate, checkoutDate, numberOfGuests, minDailyRate, maxDailyRate));
 		
-		return ResponseEntity.ok(RoomDto.convert(roomList));
+		return ResponseEntity.ok(RoomDto.parseToDto(roomList));
 		
 	}
 

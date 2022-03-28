@@ -1,5 +1,6 @@
 package br.com.hostel.models;
 
+import java.util.Objects;
 import java.util.Optional;
 
 import javax.persistence.CascadeType;
@@ -11,7 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
-import br.com.hostel.models.form.RoomForm;
+import org.springframework.util.StringUtils;
+
 import br.com.hostel.models.form.RoomUpdateForm;
 import br.com.hostel.repositories.RoomRepository;
 import lombok.Getter;
@@ -49,14 +51,11 @@ public class Room {
 		this.dailyRate = dailyRate;
 	}
 
-	public String toString() {
-		return "Room number...: " + this.number + "\n" + "Room dimension (m2)...: " + this.dimension + "\n";
-	}
+	public void setParamsIfIsNonNullOrEmpty(RoomUpdateForm form, RoomRepository roomRepository) {
 
-	public void setParamIfIsNotNull(RoomUpdateForm form, RoomRepository roomRepository) {
-
-		if (form.getDescription() != null)
+		if (!StringUtils.isEmpty(form.getDescription())) {
 			setDescription(form.getDescription());
+		}
 
 		if (form.getNumber() != 0) {
 			Optional<Room> roomOp = roomRepository.findByNumber(form.getNumber());
@@ -66,10 +65,12 @@ public class Room {
 			}
 		}
 
-		if (form.getDimension() != 0)
+		if (form.getDimension() != 0) {
 			setDimension(form.getDimension());
+		}
 
-		if (form.getDailyRate() != null)
+		if (Objects.nonNull(form.getDailyRate())) {
 			setDailyRate(form.getDailyRate());
+		}
 	}
 }

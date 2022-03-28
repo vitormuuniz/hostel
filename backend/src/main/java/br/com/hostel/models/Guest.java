@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -22,6 +23,7 @@ import javax.persistence.OneToOne;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.util.StringUtils;
 
 import br.com.hostel.enums.Role;
 import br.com.hostel.models.form.GuestUpdateForm;
@@ -141,25 +143,30 @@ public class Guest implements UserDetails {
 		return true;
 	}
 
-	public void setParamIfIsNotNull(GuestUpdateForm form) {
+	public void setParamsIfIsNonNullOrEmpty(GuestUpdateForm form) {
 
-		if (form.getTitle() != null)
+		if (!StringUtils.isEmpty(form.getTitle())) {
 			setTitle(form.getTitle());
+		}
 
-		if (form.getName() != null)
+		if (!StringUtils.isEmpty(form.getName())) {
 			setName(form.getName());
+		}
 
-		if (form.getLastname() != null)
+		if (!StringUtils.isEmpty(form.getLastname())) {
 			setLastName(form.getLastname());
+		}
 
-		if(form.getBirthday() != null)
+		if (Objects.nonNull(form.getBirthday())) {
 			setBirthday(form.getBirthday());
+		}
 
-		if (form.getAddress() != null)
+		if (Objects.nonNull(form.getAddress())) {
 			setAddress(form.getAddress());
+		}
 
-		if(form.getRole() != null)
+		if(Objects.nonNull(form.getRole())) {
 			setRole(form.getRole());
-
+		}
 	}
 }

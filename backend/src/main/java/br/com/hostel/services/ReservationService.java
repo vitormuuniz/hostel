@@ -90,7 +90,7 @@ public class ReservationService {
 		Reservation reservation = reservationRepository.findById(id)
 				.orElseThrow(() -> new ReservationException(RESERVATION_NOT_FOUND + id, HttpStatus.NOT_FOUND));
 
-		reservation.setParamIfIsNotNull(form, roomRepository);
+		reservation.setParamsIfIsNonNullOrEmpty(form, roomRepository);
 
 		roomRepository.saveAll(reservation.getRooms());
 

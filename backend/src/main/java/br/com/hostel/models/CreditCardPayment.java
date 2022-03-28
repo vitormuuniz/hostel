@@ -27,14 +27,5 @@ public class CreditCardPayment extends Payment {
 	private String nameOnCard;
 	private LocalDate expirationDate;
 	private String securityCode;
-	
-	public String toString() {
-		return "Payment with credit card...: " +  "\n" +
-				super.toString() + "\n" +
-				"Issuer...: "+ this.issuer + "\n" +
-				"Credit card number...: " + this.cardNumber + "\n" +
-				"Name on card...: " + this.nameOnCard + "\n" +
-				"Expiration date...: " + this.expirationDate + "\n" +
-				"Security code...: " + this.securityCode;
-	}
+
 }

@@ -28,7 +28,7 @@ public class RoomDto {
 		this.dailyRate = room.getDailyRate();
 	}
 
-	public static List<RoomDto> convert(List<Room> roomsList) {
+	public static List<RoomDto> parseToDto(List<Room> roomsList) {
 
 		List<RoomDto> roomsDtoList = new ArrayList<>();
 

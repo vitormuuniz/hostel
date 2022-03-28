@@ -42,7 +42,7 @@ public class ReservationController {
 
 		List<Reservation> reservationsList = reservationService.listAllReservations(guestId);
 		
-		return ResponseEntity.ok(ReservationDto.convert(reservationsList));
+		return ResponseEntity.ok(ReservationDto.parseToDto(reservationsList));
 		
 	}
 	

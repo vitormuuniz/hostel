@@ -3,6 +3,7 @@ package br.com.hostel.models;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -71,21 +72,24 @@ public class Reservation implements Comparable<Reservation>{
 		return this.getId().compareTo(otherReservation.getId());
 	}
 
-	public void setParamIfIsNotNull(ReservationUpdateForm form, RoomRepository roomRepository) {
+	public void setParamsIfIsNonNullOrEmpty(ReservationUpdateForm form, RoomRepository roomRepository) {
 
 		if (form.getNumberOfGuests() != 0)
 			setNumberOfGuests(form.getNumberOfGuests());
 
-		if (form.getReservationDate() != null)
+		if (Objects.nonNull(form.getReservationDate())) {
 			setReservationDate(form.getReservationDate());
+		}
 
-		if (form.getCheckinDate() != null)
+		if (Objects.nonNull(form.getCheckinDate())) {
 			setCheckinDate(form.getCheckinDate());
+		}
 
-		if (form.getCheckoutDate() != null)
+		if (Objects.nonNull(form.getCheckoutDate())) {
 			setCheckoutDate(form.getCheckoutDate());
+		}
 
-		if (form.getRooms_ID() != null) {
+		if (Objects.nonNull(form.getRooms_ID()) && !form.getRooms_ID().isEmpty()) {
 			Set<Room> roomsList = new HashSet<>();
 
 			form.getRooms_ID().forEach(roomId -> roomRepository.findById(roomId).ifPresent(roomsList::add));
@@ -96,7 +100,7 @@ public class Reservation implements Comparable<Reservation>{
 			setRooms(roomsList);
 		}
 
-		if (form.getPayment() != null) {
+		if (Objects.nonNull(form.getPayment())) {
 			form.getPayment().setDate(LocalDateTime.now());
 			setPayment(form.getPayment());
 		}
