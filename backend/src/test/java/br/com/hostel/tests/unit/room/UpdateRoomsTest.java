@@ -1,13 +1,13 @@
 package br.com.hostel.tests.unit.room;
 
-import br.com.hostel.controller.form.RoomUpdateForm;
+import br.com.hostel.controllers.form.RoomUpdateForm;
 import br.com.hostel.exceptions.room.RoomException;
 import br.com.hostel.initializer.RoomInitializer;
-import br.com.hostel.model.DailyRate;
-import br.com.hostel.model.Room;
-import br.com.hostel.repository.DailyRateRepository;
-import br.com.hostel.repository.RoomRepository;
-import br.com.hostel.service.RoomService;
+import br.com.hostel.models.DailyRate;
+import br.com.hostel.models.Room;
+import br.com.hostel.repositories.DailyRateRepository;
+import br.com.hostel.repositories.RoomRepository;
+import br.com.hostel.services.RoomService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

@@ -7,9 +7,9 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import br.com.hostel.model.Address;
-import br.com.hostel.model.Guest;
-import br.com.hostel.model.enums.Role;
+import br.com.hostel.models.Address;
+import br.com.hostel.models.Guest;
+import br.com.hostel.models.enums.Role;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)

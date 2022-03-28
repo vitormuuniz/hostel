@@ -15,14 +15,14 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import br.com.hostel.controller.form.GuestUpdateForm;
+import br.com.hostel.controllers.form.GuestUpdateForm;
 import br.com.hostel.exceptions.guest.GuestException;
 import br.com.hostel.initializer.GuestsInitializer;
-import br.com.hostel.model.Address;
-import br.com.hostel.model.Guest;
-import br.com.hostel.repository.AddressRepository;
-import br.com.hostel.repository.GuestRepository;
-import br.com.hostel.service.GuestService;
+import br.com.hostel.models.Address;
+import br.com.hostel.models.Guest;
+import br.com.hostel.repositories.AddressRepository;
+import br.com.hostel.repositories.GuestRepository;
+import br.com.hostel.services.GuestService;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = GuestService.class)

@@ -6,9 +6,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import br.com.hostel.controller.GuestController;
-import br.com.hostel.controller.ReservationController;
-import br.com.hostel.controller.RoomController;
+import br.com.hostel.controllers.GuestController;
+import br.com.hostel.controllers.ReservationController;
+import br.com.hostel.controllers.RoomController;
 
 @SpringBootTest
 public class SmokeTest {
