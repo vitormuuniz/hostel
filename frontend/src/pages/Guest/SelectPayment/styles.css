@@ -1,0 +1,19 @@
+.content section h1 {
+    text-align: initial;
+}
+
+.content section img {
+    display: flex;
+    margin-bottom: -80px;
+}
+
+.content form .input-pagamento label {
+    padding: 0 1px;
+    margin-top: 15px;
+}
+.content form .input-pagamento p {
+    padding: 0 1px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    font: 400 16px Roboto, sans-serif;
+}
