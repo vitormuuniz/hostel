@@ -11,9 +11,9 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-import br.com.hostel.model.Address;
-import br.com.hostel.model.Guest;
-import br.com.hostel.model.enums.Role;
+import br.com.hostel.models.Address;
+import br.com.hostel.models.Guest;
+import br.com.hostel.models.enums.Role;
 
 @RunWith(JUnitPlatform.class)
 class RegisterTest {

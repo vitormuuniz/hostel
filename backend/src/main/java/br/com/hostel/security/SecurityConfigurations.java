@@ -14,7 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsUtils;
 
-import br.com.hostel.repository.GuestRepository;
+import br.com.hostel.repositories.GuestRepository;
 
 @EnableWebSecurity
 @Configuration

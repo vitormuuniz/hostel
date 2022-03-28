@@ -13,8 +13,8 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import br.com.hostel.controller.dto.LoginDto;
-import br.com.hostel.controller.form.LoginForm;
+import br.com.hostel.controllers.dto.LoginDto;
+import br.com.hostel.controllers.form.LoginForm;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)

@@ -1,9 +1,9 @@
 package br.com.hostel.tests.unit.room;
 
 import br.com.hostel.exceptions.room.RoomException;
-import br.com.hostel.model.Room;
-import br.com.hostel.repository.RoomRepository;
-import br.com.hostel.service.RoomService;
+import br.com.hostel.models.Room;
+import br.com.hostel.repositories.RoomRepository;
+import br.com.hostel.services.RoomService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

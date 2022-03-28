@@ -1,9 +1,9 @@
 package br.com.hostel.tests.unit.guest;
 
 import br.com.hostel.exceptions.guest.GuestException;
-import br.com.hostel.model.Guest;
-import br.com.hostel.repository.GuestRepository;
-import br.com.hostel.service.GuestService;
+import br.com.hostel.models.Guest;
+import br.com.hostel.repositories.GuestRepository;
+import br.com.hostel.services.GuestService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

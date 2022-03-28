@@ -20,14 +20,14 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import br.com.hostel.controller.helper.RoomFilter;
+import br.com.hostel.controllers.helper.RoomFilter;
 import br.com.hostel.exceptions.room.RoomException;
-import br.com.hostel.model.DailyRate;
-import br.com.hostel.model.Reservation;
-import br.com.hostel.model.Room;
-import br.com.hostel.repository.ReservationRepository;
-import br.com.hostel.repository.RoomRepository;
-import br.com.hostel.service.RoomService;
+import br.com.hostel.models.DailyRate;
+import br.com.hostel.models.Reservation;
+import br.com.hostel.models.Room;
+import br.com.hostel.repositories.ReservationRepository;
+import br.com.hostel.repositories.RoomRepository;
+import br.com.hostel.services.RoomService;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)

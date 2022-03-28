@@ -11,7 +11,7 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-import br.com.hostel.model.Guest;
+import br.com.hostel.models.Guest;
 
 @RunWith(JUnitPlatform.class)
 class LoginTest {

@@ -14,8 +14,8 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import br.com.hostel.controller.form.ReservationForm;
-import br.com.hostel.model.CheckPayment;
+import br.com.hostel.controllers.form.ReservationForm;
+import br.com.hostel.models.CheckPayment;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)

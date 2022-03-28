@@ -1,11 +1,11 @@
 package br.com.hostel.tests.integration.reservation;
 
-import br.com.hostel.controller.dto.ReservationDto;
-import br.com.hostel.controller.form.ReservationForm;
+import br.com.hostel.controllers.dto.ReservationDto;
+import br.com.hostel.controllers.form.ReservationForm;
 import br.com.hostel.initializer.ReservationInitializer;
-import br.com.hostel.model.CashPayment;
-import br.com.hostel.model.CheckPayment;
-import br.com.hostel.model.CreditCardPayment;
+import br.com.hostel.models.CashPayment;
+import br.com.hostel.models.CheckPayment;
+import br.com.hostel.models.CreditCardPayment;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
