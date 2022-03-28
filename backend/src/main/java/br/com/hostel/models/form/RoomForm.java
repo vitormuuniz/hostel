@@ -1,4 +1,4 @@
-package br.com.hostel.controllers.form;
+package br.com.hostel.models.form;
 
 import javax.validation.constraints.NotNull;
 

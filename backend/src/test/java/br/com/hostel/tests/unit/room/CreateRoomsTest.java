@@ -1,7 +1,7 @@
 package br.com.hostel.tests.unit.room;
 
-import br.com.hostel.controllers.form.RoomForm;
-import br.com.hostel.exceptions.room.RoomException;
+import br.com.hostel.models.form.RoomForm;
+import br.com.hostel.exceptions.RoomException;
 import br.com.hostel.initializer.RoomInitializer;
 import br.com.hostel.models.DailyRate;
 import br.com.hostel.models.Room;

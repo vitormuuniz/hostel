@@ -1,7 +1,7 @@
 package br.com.hostel.tests.integration.reservation;
 
-import br.com.hostel.controllers.dto.ReservationDto;
-import br.com.hostel.controllers.form.ReservationForm;
+import br.com.hostel.models.dto.ReservationDto;
+import br.com.hostel.models.form.ReservationForm;
 import br.com.hostel.initializer.ReservationInitializer;
 import br.com.hostel.models.CashPayment;
 import br.com.hostel.models.CheckPayment;

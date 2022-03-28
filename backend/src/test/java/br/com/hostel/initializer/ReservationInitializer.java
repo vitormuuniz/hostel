@@ -14,7 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import br.com.hostel.controllers.form.ReservationForm;
+import br.com.hostel.models.form.ReservationForm;
 import br.com.hostel.models.CheckPayment;
 
 @ExtendWith(SpringExtension.class)

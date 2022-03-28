@@ -1,5 +1,7 @@
 package br.com.hostel.models;
 
+import java.util.Optional;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
+import br.com.hostel.models.form.RoomForm;
+import br.com.hostel.models.form.RoomUpdateForm;
+import br.com.hostel.repositories.RoomRepository;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -48,4 +53,23 @@ public class Room {
 		return "Room number...: " + this.number + "\n" + "Room dimension (m2)...: " + this.dimension + "\n";
 	}
 
+	public void setParamIfIsNotNull(RoomUpdateForm form, RoomRepository roomRepository) {
+
+		if (form.getDescription() != null)
+			setDescription(form.getDescription());
+
+		if (form.getNumber() != 0) {
+			Optional<Room> roomOp = roomRepository.findByNumber(form.getNumber());
+
+			if (roomOp.isEmpty()) {
+				setNumber(form.getNumber());
+			}
+		}
+
+		if (form.getDimension() != 0)
+			setDimension(form.getDimension());
+
+		if (form.getDailyRate() != null)
+			setDailyRate(form.getDailyRate());
+	}
 }

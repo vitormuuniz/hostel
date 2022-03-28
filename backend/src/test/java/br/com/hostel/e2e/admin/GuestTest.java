@@ -18,7 +18,7 @@ import org.openqa.selenium.WebDriver;
 import br.com.hostel.e2e.ChromeConnection;
 import br.com.hostel.models.Address;
 import br.com.hostel.models.Guest;
-import br.com.hostel.models.enums.Role;
+import br.com.hostel.enums.Role;
 
 @RunWith(JUnitPlatform.class)
 @TestMethodOrder(OrderAnnotation.class)

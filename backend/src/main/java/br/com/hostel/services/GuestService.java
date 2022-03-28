@@ -9,10 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import br.com.hostel.controllers.form.GuestForm;
-import br.com.hostel.controllers.form.GuestUpdateForm;
-import br.com.hostel.exceptions.guest.GuestException;
-import br.com.hostel.exceptions.room.RoomException;
+import br.com.hostel.models.form.GuestForm;
+import br.com.hostel.models.form.GuestUpdateForm;
+import br.com.hostel.exceptions.GuestException;
+import br.com.hostel.exceptions.RoomException;
 import br.com.hostel.models.Guest;
 import br.com.hostel.repositories.AddressRepository;
 import br.com.hostel.repositories.GuestRepository;
@@ -61,13 +61,14 @@ public class GuestService {
 	}
 
 	public Guest updateGuest(Long id, @Valid GuestUpdateForm form) {
-		Guest guestDB = guestRepository.findById(id)
+		Guest guest = guestRepository.findById(id)
 				.orElseThrow(() -> new GuestException(GUEST_NOT_FOUND + id, HttpStatus.NOT_FOUND));
 
-		Guest guestToBeUpdated = form.updateGuestForm(guestDB, guestRepository);
-		addressRepository.save(guestToBeUpdated.getAddress());
+		guest.setParamIfIsNotNull(form);
 
-		return guestToBeUpdated;
+		addressRepository.save(guest.getAddress());
+
+		return guest;
 	}
 
 	public void deleteGuest(Long id) {

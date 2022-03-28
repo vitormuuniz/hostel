@@ -1,4 +1,4 @@
-package br.com.hostel.controllers.dto;
+package br.com.hostel.models.dto;
 
 import java.util.ArrayList;
 import java.util.List;

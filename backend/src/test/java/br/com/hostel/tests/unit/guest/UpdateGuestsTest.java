@@ -15,8 +15,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import br.com.hostel.controllers.form.GuestUpdateForm;
-import br.com.hostel.exceptions.guest.GuestException;
+import br.com.hostel.models.form.GuestUpdateForm;
+import br.com.hostel.exceptions.GuestException;
 import br.com.hostel.initializer.GuestsInitializer;
 import br.com.hostel.models.Address;
 import br.com.hostel.models.Guest;
@@ -58,7 +58,6 @@ class UpdateGuestsTest {
 		opGuest.get().setLastName("Neto");
 
 		when(guestRepository.findById(guest.getId())).thenReturn(opGuest);
-		when(guestUpdateForm.updateGuestForm(guest, guestRepository)).thenReturn(guest);
 		when(addressRepository.save(guest.getAddress())).thenReturn(address);
 		
 		Guest reqGuest = guestService.updateGuest(guest.getId(), guestUpdateForm);

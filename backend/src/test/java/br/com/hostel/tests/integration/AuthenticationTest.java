@@ -1,7 +1,7 @@
 package br.com.hostel.tests.integration;
 
-import br.com.hostel.controllers.dto.LoginDto;
-import br.com.hostel.controllers.form.LoginForm;
+import br.com.hostel.models.dto.LoginDto;
+import br.com.hostel.models.form.LoginForm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

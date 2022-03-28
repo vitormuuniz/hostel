@@ -23,7 +23,8 @@ import javax.persistence.OneToOne;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import br.com.hostel.models.enums.Role;
+import br.com.hostel.enums.Role;
+import br.com.hostel.models.form.GuestUpdateForm;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -138,5 +139,27 @@ public class Guest implements UserDetails {
 	@Override
 	public boolean isEnabled() {
 		return true;
+	}
+
+	public void setParamIfIsNotNull(GuestUpdateForm form) {
+
+		if (form.getTitle() != null)
+			setTitle(form.getTitle());
+
+		if (form.getName() != null)
+			setName(form.getName());
+
+		if (form.getLastname() != null)
+			setLastName(form.getLastname());
+
+		if(form.getBirthday() != null)
+			setBirthday(form.getBirthday());
+
+		if (form.getAddress() != null)
+			setAddress(form.getAddress());
+
+		if(form.getRole() != null)
+			setRole(form.getRole());
+
 	}
 }

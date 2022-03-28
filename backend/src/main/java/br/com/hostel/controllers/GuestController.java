@@ -1,8 +1,8 @@
 package br.com.hostel.controllers;
 
-import br.com.hostel.controllers.dto.GuestDto;
-import br.com.hostel.controllers.form.GuestForm;
-import br.com.hostel.controllers.form.GuestUpdateForm;
+import br.com.hostel.models.dto.GuestDto;
+import br.com.hostel.models.form.GuestForm;
+import br.com.hostel.models.form.GuestUpdateForm;
 import br.com.hostel.models.Guest;
 import br.com.hostel.services.GuestService;
 import org.springframework.beans.factory.annotation.Autowired;

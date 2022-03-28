@@ -9,7 +9,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import br.com.hostel.models.Address;
 import br.com.hostel.models.Guest;
-import br.com.hostel.models.enums.Role;
+import br.com.hostel.enums.Role;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)

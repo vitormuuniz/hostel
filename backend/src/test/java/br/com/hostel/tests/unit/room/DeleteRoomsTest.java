@@ -1,6 +1,6 @@
 package br.com.hostel.tests.unit.room;
 
-import br.com.hostel.exceptions.room.RoomException;
+import br.com.hostel.exceptions.RoomException;
 import br.com.hostel.models.Room;
 import br.com.hostel.repositories.RoomRepository;
 import br.com.hostel.services.RoomService;

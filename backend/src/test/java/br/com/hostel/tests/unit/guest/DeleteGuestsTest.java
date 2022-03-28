@@ -1,6 +1,6 @@
 package br.com.hostel.tests.unit.guest;
 
-import br.com.hostel.exceptions.guest.GuestException;
+import br.com.hostel.exceptions.GuestException;
 import br.com.hostel.models.Guest;
 import br.com.hostel.repositories.GuestRepository;
 import br.com.hostel.services.GuestService;

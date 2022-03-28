@@ -1,4 +1,4 @@
-package br.com.hostel.controllers.dto;
+package br.com.hostel.models.dto;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

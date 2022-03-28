@@ -1,4 +1,4 @@
-package br.com.hostel.controllers.form;
+package br.com.hostel.models.form;
 
 import java.time.LocalDate;
 
@@ -10,7 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import br.com.hostel.models.Address;
 import br.com.hostel.models.Guest;
-import br.com.hostel.models.enums.Role;
+import br.com.hostel.enums.Role;
 import br.com.hostel.repositories.AddressRepository;
 
 @Getter

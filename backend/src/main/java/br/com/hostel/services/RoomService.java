@@ -16,10 +16,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import br.com.hostel.controllers.form.RoomForm;
-import br.com.hostel.controllers.form.RoomUpdateForm;
-import br.com.hostel.controllers.helper.RoomFilter;
-import br.com.hostel.exceptions.room.RoomException;
+import br.com.hostel.models.form.RoomForm;
+import br.com.hostel.models.form.RoomUpdateForm;
+import br.com.hostel.models.helper.RoomFilter;
+import br.com.hostel.exceptions.RoomException;
 import br.com.hostel.models.Reservation;
 import br.com.hostel.models.Room;
 import br.com.hostel.repositories.DailyRateRepository;
@@ -136,15 +136,15 @@ public class RoomService {
 
 	public Room updateRoom(@PathVariable Long id, @RequestBody @Valid RoomUpdateForm form) throws RoomException {
 
-		Room roomDB = roomRepository.findById(id).orElseThrow(() -> new RoomException(ROOM_NOT_FOUND, HttpStatus.NOT_FOUND));
+		Room room = roomRepository.findById(id).orElseThrow(() -> new RoomException(ROOM_NOT_FOUND, HttpStatus.NOT_FOUND));
 
-		Room roomToBeUpdated = form.updateRoomForm(roomDB, roomRepository);
+		room.setParamIfIsNotNull(form, roomRepository);
 
-		dailyRateRepository.save(roomToBeUpdated.getDailyRate());
+		dailyRateRepository.save(room.getDailyRate());
 
-		roomRepository.save(roomToBeUpdated);
+		roomRepository.save(room);
 		
-		return roomToBeUpdated;
+		return room;
 	}
 
 	public void deleteRoom(Long id) throws RoomException {

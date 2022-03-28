@@ -1,4 +1,4 @@
-package br.com.hostel.controllers.helper;
+package br.com.hostel.models.helper;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
