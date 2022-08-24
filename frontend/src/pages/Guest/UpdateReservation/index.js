@@ -27,7 +27,7 @@ export default function UpdateReservation() {
         setCheckoutDate(response.data.checkoutDate);
         setNumberOfGuests(response.data.numberOfGuests);
       });
-  }, []);
+  }, [reservation_ID, token]);
 
 
   const history = useHistory();

@@ -46,7 +46,7 @@ export default function UpdateGuest() {
         setState(response.data.address.state);
         setCountry(response.data.address.country);
       });
-  }, []);
+  }, [guest_ID, token]);
 
   async function handleUpdate(e) {
     e.preventDefault();

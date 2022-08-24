@@ -22,7 +22,7 @@ export default function AdminProfile() {
       .then((response) => {
         setGuest(response.data);
       });
-  }, [token]);
+  }, [token, guest_ID]);
 
   return (
     <div className="profile-container">
