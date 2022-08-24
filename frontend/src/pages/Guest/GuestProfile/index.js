@@ -25,7 +25,7 @@ export default function GuestProfile() {
       .then((response) => {
         setGuest(response.data);
       });
-  }, [token]);
+  }, [token, guest_ID]);
 
   useEffect(() => {
     api
@@ -35,7 +35,7 @@ export default function GuestProfile() {
       .then((response) => {
         setReservations(response.data);
       });
-  }, [token]);
+  }, [token, guest_ID]);
 
   async function handleUpdateReservation(id) {
     sessionStorage.setItem("reservation_ID", id);
