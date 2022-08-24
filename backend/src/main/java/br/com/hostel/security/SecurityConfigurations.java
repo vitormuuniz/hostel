@@ -20,11 +20,11 @@ import br.com.hostel.repositories.GuestRepository;
 @Configuration
 public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 
-	private final AutenticationService autenticationService;
+	private final AuthenticationService autenticationService;
 	private final TokenService tokenService;
 	private final GuestRepository guestRepository;
 
-	public SecurityConfigurations(AutenticationService autenticationService, TokenService tokenService, GuestRepository guestRepository) {
+	public SecurityConfigurations(AuthenticationService autenticationService, TokenService tokenService, GuestRepository guestRepository) {
 		this.autenticationService = autenticationService;
 		this.tokenService = tokenService;
 		this.guestRepository = guestRepository;
@@ -38,22 +38,19 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		//.passwordEncoder salva a senha como hash, invés de texto aberto
 		auth.userDetailsService(autenticationService).passwordEncoder(new BCryptPasswordEncoder());
 	}
 
-	// configuracoes de autorizacao 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		
 		http.authorizeRequests()
 				.requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
 				.antMatchers(HttpMethod.POST, "/auth").permitAll() 
-				.antMatchers(HttpMethod.POST, "/api/guests").permitAll() 
-				.anyRequest().authenticated() 
+				.antMatchers(HttpMethod.POST, "/api/guests").permitAll()
+				.anyRequest().authenticated()
 				.and().csrf().disable()
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) 
-				.and().addFilterBefore(new AutenticacaoViaTokenFilter(tokenService, guestRepository), UsernamePasswordAuthenticationFilter.class);
+				.and().addFilterBefore(new AuthenticationByTokenFilter(tokenService, guestRepository), UsernamePasswordAuthenticationFilter.class);
 	}
 
 	@Override

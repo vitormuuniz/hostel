@@ -27,31 +27,25 @@ public class TokenService {
 		Date expirationDate = new Date(todayDate.getTime() + Long.parseLong(expiration));
 		
 		return Jwts.builder()
-				.setIssuer("API do Albergue") //quem fez a geração do token
-				.setSubject(loggedUser.getId().toString()) //usuario a quem esse token pertence
-				.setIssuedAt(todayDate) //data de geração
-				.setExpiration(expirationDate) //data de expiração
-				.signWith(SignatureAlgorithm.HS256, secret) //usar a senha do application.properties / algoritmo de criptografia
+				.setIssuer("Hostel")
+				.setSubject(loggedUser.getId().toString())
+				.setIssuedAt(todayDate)
+				.setExpiration(expirationDate)
+				.signWith(SignatureAlgorithm.HS256, secret)
 				.compact();
 	}
 
-	public boolean isTokenValido(String token) {
-		//parser() descriptografa o token e verifica se está ok
+	public boolean isValidToken(String token) {
 		try {
-			
 			Jwts.parser().setSigningKey(this.secret).parseClaimsJws(token);
-			
 			return true;
 		} catch (Exception e) {
 			return false;
 		}
 	}
 
-	public Long getIdUsuario(String token) {
-		
+	public Long getUserId(String token) {
 		Claims claims = Jwts.parser().setSigningKey(this.secret).parseClaimsJws(token).getBody();
-		
-		return Long.parseLong(claims.getSubject()); 
-		
+		return Long.parseLong(claims.getSubject());
 	}
 }

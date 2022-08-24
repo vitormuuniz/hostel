@@ -13,12 +13,12 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import br.com.hostel.repositories.GuestRepository;
 
-public class AutenticacaoViaTokenFilter extends OncePerRequestFilter {
+public class AuthenticationByTokenFilter extends OncePerRequestFilter {
 
 	private final TokenService tokenService;
 	private final GuestRepository repository;
 
-	public AutenticacaoViaTokenFilter(TokenService tokenService, GuestRepository repository) {
+	public AuthenticationByTokenFilter(TokenService tokenService, GuestRepository repository) {
 		this.tokenService = tokenService;
 		this.repository = repository;
 	}
@@ -27,28 +27,27 @@ public class AutenticacaoViaTokenFilter extends OncePerRequestFilter {
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 
-		String token = recuperarToken(request);
-		boolean isValid = tokenService.isTokenValido(token);
+		String token = getToken(request);
+		boolean isValid = tokenService.isValidToken(token);
 
-		if (isValid)
-			autenticarCliente(token);
-		
+		if (isValid) {
+			authenticateClient(token);
+		}
+
 		filterChain.doFilter(request, response);
 	}
 
-	private void autenticarCliente(String token) {
-		Long idUsuario = tokenService.getIdUsuario(token);
+	private void authenticateClient(String token) {
+		Long userId = tokenService.getUserId(token);
 
-
-		repository.findById(idUsuario).ifPresent(guest ->
+		repository.findById(userId).ifPresent(guest ->
 			SecurityContextHolder.getContext().setAuthentication(
 					new UsernamePasswordAuthenticationToken(guest, null, guest.getAuthorities()))
 		);
 
 	}
 
-	private String recuperarToken(HttpServletRequest request) {
-		
+	private String getToken(HttpServletRequest request) {
 		String token = request.getHeader("Authorization");
 		
 		if (token == null || !token.startsWith("Bearer ")) {
@@ -57,6 +56,5 @@ public class AutenticacaoViaTokenFilter extends OncePerRequestFilter {
 
 		return token.substring(7);
 	}
-
 }
 

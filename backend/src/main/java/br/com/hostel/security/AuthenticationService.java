@@ -9,12 +9,12 @@ import org.springframework.stereotype.Service;
 import br.com.hostel.repositories.GuestRepository;
 
 @Service
-public class AutenticationService implements UserDetailsService {
+public class AuthenticationService implements UserDetailsService {
 
 	private final GuestRepository repository;
 
 	@Autowired
-	public AutenticationService(GuestRepository repository) {
+	public AuthenticationService(GuestRepository repository) {
 		this.repository = repository;
 	}
 

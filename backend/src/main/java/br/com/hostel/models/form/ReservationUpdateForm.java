@@ -1,18 +1,11 @@
 package br.com.hostel.models.form;
 
 import br.com.hostel.models.Payment;
-import br.com.hostel.models.Reservation;
-import br.com.hostel.models.Room;
-import br.com.hostel.repositories.RoomRepository;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 @Getter
 @Setter

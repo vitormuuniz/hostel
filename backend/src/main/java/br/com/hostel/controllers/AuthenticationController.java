@@ -41,9 +41,7 @@ public class AuthenticationController {
 		try {
 			
 			Authentication authentication = authManager.authenticate(loginData);
-			
-			String token = tokenService.generateToken(authentication); 
-			
+			String token = tokenService.generateToken(authentication);
 			Guest loggedGuest = (Guest) authentication.getPrincipal();
 			
 			return ResponseEntity.ok(new LoginDto(token, "Bearer", loggedGuest.getId(), loggedGuest.getRole()));
